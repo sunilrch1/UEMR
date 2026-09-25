@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHW Assessment Module — Wireframes</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
+.page-wrapper{background:#fff;max-width:1200px;margin:0 auto 24px;border:1px solid #ccc;}
+.app-header{background:#1a7fa8;color:#fff;padding:8px 16px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+.patient-banner{background:#fff;border-bottom:1px solid #ccc;padding:6px 16px;font-size:11px;color:#222;}
+.patient-banner .row1{display:flex;flex-wrap:wrap;gap:0 20px;margin-bottom:2px;}
+.patient-banner b{font-weight:700;}
+.meta-row{background:#f5f5f5;border-bottom:1px solid #ddd;padding:5px 16px;font-size:11px;display:flex;align-items:center;}
+.legend{display:flex;gap:12px;align-items:center;font-size:11px;}
+.leg-box{width:14px;height:14px;display:inline-block;margin-right:4px;vertical-align:middle;border:1px solid #aaa;}
+.date-field{margin-left:auto;font-size:11px;display:flex;align-items:center;gap:6px;}
+.date-field input{font-size:11px;padding:2px 6px;border:1px solid #aaa;width:90px;}
+.tabs{display:flex;gap:4px;padding:12px 16px 0;background:#fff;flex-wrap:wrap;}
+.tab{padding:6px 16px;font-size:12px;font-weight:700;border-radius:4px 4px 0 0;cursor:pointer;border:1px solid #aaa;border-bottom:none;user-select:none;}
+.tab.selected{background:#1a7fa8;color:#fff;border-color:#1a7fa8;}
+.tab.incomplete{background:#c87c00;color:#fff;border-color:#c87c00;}
+.tab.complete{background:#fff;color:#333;border-color:#aaa;}
+.btn-row{display:flex;gap:6px;padding:6px 16px;background:#fff;border-bottom:1px solid #eee;}
+.btn{padding:5px 14px;font-size:12px;font-weight:700;border:none;border-radius:3px;cursor:pointer;color:#fff;}
+.btn-teal{background:#1a7fa8;}.btn-teal:hover{background:#155f80;}
+/* All section headers — light gray matching application style */
+.section-header{background:#f0f0f0;color:#333;font-size:12px;font-weight:700;padding:8px 16px;display:flex;align-items:center;gap:10px;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.section-header .select-codes-link{color:#1a7fa8;font-size:12px;cursor:pointer;text-decoration:underline;font-weight:400;}
+.q-row{display:flex;align-items:flex-start;padding:8px 16px;border-bottom:1px solid #eee;background:#fff;font-size:12px;gap:10px;flex-wrap:wrap;}
+.q-row:nth-child(even){background:#f9f9f9;}
+.q-row .q-text{white-space:nowrap;}
+.q-row select{font-size:11px;padding:3px 8px;width:220px;flex-shrink:0;border:1px solid #aaa;}
+.q-row-col{flex-direction:column;align-items:flex-start;}
+.score-row{display:flex;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid #eee;background:#fff;font-size:12px;}
+.score-display{font-size:12px;font-weight:700;color:#1a7fa8;min-width:80px;}
+.comments-area{padding:8px 16px;background:#fff;border-bottom:1px solid #eee;}
+.comments-area label{font-size:12px;display:block;margin-bottom:4px;font-weight:700;}
+.comments-area textarea{width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:60px;resize:vertical;}
+.nr-check{font-size:11px;color:#555;padding:6px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #eee;}
+.ahc-consent{background:#fff8e1;border:1px solid #f0c040;margin:8px 16px;padding:8px 12px;font-size:11px;border-radius:3px;}
+.ahc-consent .consent-opts{display:flex;gap:16px;margin-top:6px;}
+.safety-legend{background:#f0f4f8;border:1px solid #cce0ee;margin:6px 16px;padding:5px 10px;font-size:11px;color:#333;border-radius:3px;}
+.safety-table{width:100%;border-collapse:collapse;font-size:11px;}
+.safety-table th{background:#e8e8e8;padding:6px 8px;border:1px solid #ccc;font-size:11px;font-weight:700;text-align:center;}
+.safety-table th:first-child{text-align:left;}
+.safety-table td{padding:6px 8px;border:1px solid #ddd;text-align:center;}
+.safety-table td:first-child{text-align:left;}
+.safety-table tr:nth-child(even) td{background:#f9f9f9;}
+.req{color:#c00;font-size:11px;}
+.care-section{border-bottom:1px solid #ddd;}
+.care-field{padding:8px 16px;border-bottom:1px solid #eee;font-size:12px;}
+.care-field label{display:block;font-weight:700;font-size:11px;margin-bottom:4px;color:#333;}
+.care-field textarea{width:100%;font-size:11px;padding:4px 6px;border:1px solid #aaa;height:56px;resize:vertical;}
+.care-field .readonly-box{background:#f5f5f5;border:1px solid #ccc;min-height:40px;padding:6px 8px;font-size:11px;color:#555;font-style:italic;}
+.care-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.full-width{grid-column:1/-1;}
+.checkbox-row{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;margin-top:4px;}
+.checkbox-row label{display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.none-inline{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-left:10px;font-weight:600;color:#333;}
+.inline-radio{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;margin-top:4px;}
+.inline-radio label{display:flex;align-items:center;gap:4px;}
+.treatment-goal-block{border:1px solid #ccc;margin-bottom:8px;border-radius:3px;}
+.treatment-goal-header{background:#dff0d8;padding:5px 10px;font-size:11px;font-weight:700;color:#3a5a3a;border-bottom:1px solid #ccc;}
+.treatment-goal-body{padding:8px 10px;}
+.tg-label{font-size:11px;font-weight:700;margin-bottom:3px;color:#333;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.list-table{width:100%;border-collapse:collapse;font-size:11px;}
+.list-table th{background:#1a7fa8;color:#fff;padding:7px 10px;text-align:left;font-size:11px;white-space:nowrap;}
+.list-table td{padding:7px 10px;border-bottom:1px solid #e0e0e0;font-size:11px;}
+.list-table tr:nth-child(even) td{background:#f7f7f7;}
+.action-btn{cursor:pointer;font-size:12px;padding:2px 8px;border:none;border-radius:3px;color:#fff;background:#1a7fa8;margin-right:4px;}
+.action-btn.delete{background:#c0392b;}
+.action-btn.addendum{background:#27ae60;}
+.status-initiated{color:#c87c00;}
+.status-signed{color:#1a7fa8;}
+.top-btns{display:flex;justify-content:flex-end;gap:8px;padding:8px 16px;}
+.alert-box{background:#fff3cd;border:1px solid #ffc107;color:#856404;padding:8px 16px;font-size:11px;display:none;}
+#landing-screen{display:block;}
+#assessment-screen{display:none;}
+/* Modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;}
+.modal-overlay.active{display:flex;}
+.modal-box{background:#fff;width:560px;max-height:82vh;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;}
+.modal-header{background:#1a7fa8;color:#fff;padding:10px 16px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+.modal-header button{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;line-height:1;}
+.modal-body{padding:12px 16px;overflow-y:auto;flex:1;}
+.modal-footer{padding:10px 16px;border-top:1px solid #ddd;display:flex;justify-content:center;gap:10px;}
+.modal-search{width:100%;font-size:11px;padding:4px 8px;border:1px solid #aaa;margin-bottom:6px;}
+.modal-list{max-height:240px;overflow-y:auto;border:1px solid #ddd;}
+.modal-list label{display:flex;align-items:center;gap:8px;padding:5px 8px;font-size:11px;cursor:pointer;border-bottom:1px solid #f0f0f0;}
+.modal-list label:hover{background:#e8f4f8;}
+.uncheck-all{color:#c00;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:4px;margin-bottom:6px;}
+.modal-select{width:100%;font-size:11px;padding:3px 6px;border:1px solid #aaa;margin-bottom:8px;}
+/* Confirm modal */
+.confirm-box{background:#fff;width:420px;border-radius:4px;overflow:hidden;}
+.confirm-header{background:#1a7fa8;color:#fff;padding:10px 16px;font-size:13px;font-weight:700;}
+.confirm-body{padding:16px;font-size:12px;color:#333;line-height:1.6;}
+.confirm-footer{padding:10px 16px;border-top:1px solid #ddd;display:flex;justify-content:center;gap:10px;}
+</style>
+</head>
+<body>
+
+<div style="text-align:center;padding:12px;background:#1a7fa8;color:#fff;font-size:16px;font-weight:700;margin-bottom:16px;">
+  UEMR — CHW Assessment Module Wireframes
+</div>
+
+<!-- ICD MODAL -->
+<div class="modal-overlay" id="icd-modal">
+  <div class="modal-box">
+    <div class="modal-header"><span>Diagnosis</span><button onclick="closeICDModal()">&#x2715;</button></div>
+    <div class="modal-body">
+      <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Diagnosis Codes (ICD 10): <span class="req">*</span></div>
+      <select class="modal-select"><option>Select</option></select>
+      <div style="display:flex;gap:16px;margin-bottom:6px;font-size:11px;">
+        <span style="color:#1a7fa8;cursor:pointer;display:flex;align-items:center;gap:4px;" onclick="checkAllICD()"><span style="font-size:14px;">&#x2713;</span> Check All</span>
+        <span style="color:#c00;cursor:pointer;display:flex;align-items:center;gap:4px;" onclick="uncheckAllICD()"><span style="font-size:14px;">&#x2717;</span> Uncheck All</span>
+      </div>
+      <input type="text" class="modal-search" placeholder="Search..." oninput="filterICD(this.value)">
+      <div class="modal-list" id="icd-list">
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z55 — Problems related to education and literacy</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z55.5 — Less than a high school diploma</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z55.6 — Problems related to health literacy</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z56.0 — Unemployment, unspecified</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z58.89 — Other problems related to physical environment</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.00 — Homelessness unspecified</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.10 — Inadequate housing, unspecified</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.41 — Food insecurity</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.8 — Other problems related to housing and economic circumstances</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.81 — Housing instability, housed</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.811 — Housing instability, housed, with risk of homelessness</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.82 — Transportation insecurities</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z59.86 — Financial insecurity</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z60 — Problems related to social environment</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z62.2 — Upbringing away from parents</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z62.831 — Non-parental relative-child conflict</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z63 — Other problems related to primary support group</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z63.79 — Other stressful life events affecting family and household</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z64 — Problems related to certain psychosocial circumstances</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z65 — Problems related to other psychosocial circumstances</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z71.89 — Care coordination</label>
+        <label><input type="checkbox" onchange="updatePrimaryDx()"> Z75.3 — Unavailability and inaccessibility of health-care facilities</label>
+      </div>
+      <div style="margin-top:10px;font-size:11px;font-weight:700;">Primary Diagnosis: <span class="req">*</span></div>
+      <select class="modal-select" id="primary-dx-select" style="margin-top:4px;"><option value="">Select</option></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-teal" onclick="saveICD()">SAVE</button>
+      <button class="btn btn-teal" onclick="closeICDModal()">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT CONFIRM MODAL -->
+<div class="modal-overlay" id="submit-modal">
+  <div class="confirm-box">
+    <div class="confirm-header">Submit Record</div>
+    <div class="confirm-body" id="submit-modal-body"></div>
+    <div class="confirm-footer" id="submit-modal-footer"></div>
+  </div>
+</div>
+
+<!-- LANDING SCREEN -->
+<div class="page-wrapper" id="landing-screen">
+  <div class="app-header"><span>CHW Assessment</span><span style="font-size:11px;">Current Active Patient Record</span></div>
+  <div class="patient-banner">
+    <div class="row1"><span><b>Last Name:</b> JOHNSON</span><span><b>First Name:</b> MARCUS</span><span><b>Date of Birth:</b> 03/14/1985</span><span><b>Age:</b> 41 years</span><span><b>Current Gender:</b> Male</span><span><b>EMR ID:</b> 3021847</span><span><b>TB Classification:</b> Class 2</span><span><b>Last Visit Date:</b> 09/05/2026</span></div>
+    <div class="row1"><span><b>Patient Type:</b> DOHMH</span><span><b>Last Visit Clinic:</b> TRAINING</span><span><b>Primary Language:</b> Spanish</span><span><b>Maven #:</b> MJ3021</span><span><b>Registered For Patient Portal:</b> Yes</span></div>
+  </div>
+  <div class="top-btns">
+    <button class="btn btn-teal" onclick="checkInitial()">INITIAL ASSESSMENT</button>
+    <button class="btn btn-teal" onclick="checkFollowUp()">FOLLOW-UP ASSESSMENT</button>
+    <button class="btn btn-teal" onclick="showAssessment('backdate')">BACK DATE</button>
+  </div>
+  <div style="padding:4px 16px 8px;font-size:11px;display:flex;align-items:center;gap:6px;"><input type="checkbox"> <label>View History</label></div>
+  <table class="list-table">
+    <thead><tr>
+      <th>Visit Date ↕</th><th>Initiated Date ↕</th><th>Assessment Type ↕</th><th>Initiated By ↕</th>
+      <th>Signed Date ↕</th><th>Signed By ↕</th><th>Clinic ↕</th><th>Version # ↕</th><th>Action(s) ↕</th><th>Status ↕</th>
+    </tr></thead>
+    <tbody id="landing-tbody"></tbody>
+  </table>
+  <div id="no-records" style="padding:12px 16px;font-size:11px;color:#888;font-style:italic;">No records to display.</div>
+</div>
+
+<!-- ASSESSMENT SCREEN -->
+<div class="page-wrapper" id="assessment-screen">
+  <div class="app-header">
+    <span id="header-title" style="cursor:pointer;" onclick="autoSaveAndClose()">← Initial CHW Assessment</span>
+    <span style="font-size:11px;">Current Active Patient Record</span>
+  </div>
+  <div class="patient-banner">
+    <div class="row1"><span><b>Last Name:</b> JOHNSON</span><span><b>First Name:</b> MARCUS</span><span><b>Date of Birth:</b> 03/14/1985</span><span><b>Age:</b> 41 years</span><span><b>Current Gender:</b> Male</span><span><b>EMR ID:</b> 3021847</span><span><b>TB Classification:</b> Class 2</span><span><b>Last Visit Date:</b> 09/05/2026</span></div>
+    <div class="row1"><span><b>Patient Type:</b> DOHMH</span><span><b>Last Visit Clinic:</b> TRAINING</span><span><b>Primary Language:</b> Spanish</span><span><b>Maven #:</b> MJ3021</span><span><b>Registered For Patient Portal:</b> Yes</span></div>
+  </div>
+  <div class="meta-row"><b>Initiated By:</b>&nbsp;SUNIL CHARLA, Admin &nbsp;&nbsp; <b>Initiated Date:</b>&nbsp;<span id="initiated-date"></span></div>
+  <div class="meta-row">
+    <div class="legend">
+      <span><span class="leg-box" style="background:#1a7fa8;border-color:#1a7fa8;"></span>Selected</span>
+      <span><span class="leg-box" style="background:#fff;"></span>Complete</span>
+      <span><span class="leg-box" style="background:#c87c00;border-color:#c87c00;"></span>Incomplete</span>
+    </div>
+    <div class="date-field"><b>Date: <span class="req">*</span></b>&nbsp;<input type="text" id="assessment-date" readonly style="background:#f5f5f5;"> 📅</div>
+  </div>
+  <div class="tabs">
+    <div class="tab selected" id="tab-btn-phq2" onclick="showTab('phq2')">PHQ-2</div>
+    <div class="tab incomplete" id="tab-btn-ahc" onclick="showTab('ahc')">AHC Screener</div>
+    <div class="tab incomplete" id="tab-btn-careplan" onclick="showTab('careplan')">CHW Care Plan</div>
+  </div>
+  <div class="alert-box" id="mandatory-alert">
+    ⚠ Mandatory fields are not documented. Do you still want to continue?
+    &nbsp;<button onclick="proceedToTab()" style="font-size:11px;padding:2px 10px;background:#1a7fa8;color:#fff;border:none;border-radius:3px;cursor:pointer;">Yes, continue</button>
+    &nbsp;<button onclick="dismissAlert()" style="font-size:11px;padding:2px 10px;background:#888;color:#fff;border:none;border-radius:3px;cursor:pointer;">No</button>
+  </div>
+
+  <!-- PHQ-2 TAB -->
+  <div id="tab-phq2" class="tab-content active">
+    <div class="btn-row"><button class="btn btn-teal" onclick="tryNavigate('ahc','phq2')">CONTINUE&gt;&gt;</button></div>
+    <div class="section-header">PHQ-2 Screener</div>
+    <div class="nr-check"><input type="checkbox" id="nr-phq2" onchange="toggleNotRequired('phq2')"> Not Required</div>
+    <div id="phq2-body">
+      <div style="padding:6px 16px 4px;font-size:11px;color:#555;font-style:italic;">Over the last 2 weeks, how often have you been bothered by any of the following problems?</div>
+      <div class="q-row"><span class="q-text">1. Little interest or pleasure in doing things <span class="req">*</span></span>
+        <select id="phq1" onchange="calcPHQ();checkNRState('phq2')"><option value="">Select</option><option value="0">Not at all (0 points)</option><option value="1">Several days (1 point)</option><option value="2">More than half the days (2 points)</option><option value="3">Nearly every day (3 points)</option></select></div>
+      <div class="q-row"><span class="q-text">2. Feeling down, depressed, or hopeless <span class="req">*</span></span>
+        <select id="phq2q" onchange="calcPHQ();checkNRState('phq2')"><option value="">Select</option><option value="0">Not at all (0 points)</option><option value="1">Several days (1 point)</option><option value="2">More than half the days (2 points)</option><option value="3">Nearly every day (3 points)</option></select></div>
+      <div class="score-row"><b>PHQ-2 Score:</b> <span class="score-display" id="phq-score">—</span></div>
+      <div class="comments-area" id="phq2-comments"><label>Comments:</label><textarea oninput="checkNRState('phq2')"></textarea></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-teal" onclick="tryNavigate('ahc','phq2')">CONTINUE&gt;&gt;</button></div>
+    <div style="text-align:center;padding:10px;"><button class="btn btn-teal" style="padding:5px 24px;" onclick="autoSaveAndClose()">CLOSE</button></div>
+  </div>
+
+  <!-- AHC SCREENER TAB -->
+  <div id="tab-ahc" class="tab-content">
+    <div class="btn-row">
+      <button class="btn btn-teal" onclick="tryNavigate('phq2','ahc')">PREVIOUS</button>
+      <button class="btn btn-teal" onclick="tryNavigate('careplan','ahc')">CONTINUE&gt;&gt;</button>
+    </div>
+    <div class="nr-check"><input type="checkbox" id="nr-ahc" onchange="toggleNotRequired('ahc')"> Not Required</div>
+    <div id="ahc-body">
+      <div class="ahc-consent">
+        <b>Question 0 — Consent required:</b> We use this survey to understand needs our patients have which could interfere with good health. We may share your answers with your other healthcare providers, and with your health plan and social services organizations, so they can determine if you qualify for any free non-medical services that could be helpful. You can choose not to answer this survey, but we can only check for services if you do answer.
+        <div class="consent-opts"><label><input type="radio" name="ahc0" onchange="checkNRState('ahc')"> Permit</label><label><input type="radio" name="ahc0" onchange="checkNRState('ahc')"> Deny</label></div>
+      </div>
+      <div class="q-row"><span class="q-text"><b>1.</b> What is your living situation today? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>I do not have a steady place to live</option><option>I have a place to live today, but I am worried about losing it in the future</option><option>I have a steady place to live</option></select></div>
+      <div class="q-row q-row-col">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <span><b>2.</b> Think about the place you live. Do you have problems with any of the following? <span class="req">*</span></span>
+          <label class="none-inline" style="color:#333;"><input type="checkbox" name="q2" value="none" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> None</label>
+        </div>
+        <div class="checkbox-row" style="margin-top:6px;">
+          <label><input type="checkbox" name="q2" value="heat" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Lack of heat</label>
+          <label><input type="checkbox" name="q2" value="lead" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Lead paint or pipes</label>
+          <label><input type="checkbox" name="q2" value="mold" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Mold</label>
+          <label><input type="checkbox" name="q2" value="oven" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Oven or stove not working</label>
+          <label><input type="checkbox" name="q2" value="pests" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Pests such as bugs, ants, or mice</label>
+          <label><input type="checkbox" name="q2" value="smoke" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Smoke detectors missing or not working</label>
+          <label><input type="checkbox" name="q2" value="water" onchange="handleNoneMutual('q2','none');checkNRState('ahc')"> Water leaks</label>
+        </div>
+      </div>
+      <div class="q-row"><span class="q-text"><b>3.</b> In the past 12 months has the electric, gas, oil, or water company threatened to shut off services in your home? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>Already shut off</option><option>No</option><option>Yes</option></select></div>
+      <div class="q-row"><span class="q-text"><b>4.</b> Within the past 12 months, you worried that your food would run out before you got money to buy more. <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>Never true</option><option>Often true</option><option>Sometimes true</option></select></div>
+      <div class="q-row"><span class="q-text"><b>5.</b> Within the past 12 months, the food you bought just didn't last and you didn't have money to get more. <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>Never true</option><option>Often true</option><option>Sometimes true</option></select></div>
+      <div class="q-row"><span class="q-text"><b>6.</b> In the past 12 months, has lack of reliable transportation kept you from medical appointments, meetings, work or from getting things needed for daily living? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>No</option><option>Yes</option></select></div>
+      <div class="q-row"><span class="q-text"><b>7.</b> Do you want help finding or keeping work or a job? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>I do not need or want help</option><option>Yes, help finding work</option><option>Yes, help keeping work</option></select></div>
+      <div class="q-row"><span class="q-text"><b>8.</b> Do you want help with school or training? For example, starting or completing job training or getting a high school diploma, GED or equivalent. <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>No</option><option>Yes</option></select></div>
+      <!-- Safety questions — light gray header matching original app style -->
+      <div style="padding:6px 16px;font-size:12px;font-weight:700;background:#f0f0f0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;color:#333;">9. Safety Questions: How often does anyone, including family and friends... <span class="req">*</span></div>
+      <div class="safety-legend"><b>Scoring:</b> Never = 1 point &nbsp;|&nbsp; Rarely = 2 points &nbsp;|&nbsp; Sometimes = 3 points &nbsp;|&nbsp; Fairly often = 4 points &nbsp;|&nbsp; Frequently = 5 points</div>
+      <div style="padding:8px 16px;overflow-x:auto;">
+        <table class="safety-table">
+          <thead><tr><th style="width:35%;text-align:left;"></th><th>Never</th><th>Rarely</th><th>Sometimes</th><th>Fairly often</th><th>Frequently</th></tr></thead>
+          <tbody>
+            <tr><td>Physically hurt you? <span class="req">*</span></td><td><input type="radio" name="s9" value="1" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s9" value="2" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s9" value="3" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s9" value="4" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s9" value="5" onchange="calcSafety();checkNRState('ahc')"></td></tr>
+            <tr><td>Insult or talk down to you? <span class="req">*</span></td><td><input type="radio" name="s10" value="1" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s10" value="2" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s10" value="3" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s10" value="4" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s10" value="5" onchange="calcSafety();checkNRState('ahc')"></td></tr>
+            <tr><td>Threaten you with harm? <span class="req">*</span></td><td><input type="radio" name="s11" value="1" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s11" value="2" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s11" value="3" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s11" value="4" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s11" value="5" onchange="calcSafety();checkNRState('ahc')"></td></tr>
+            <tr><td>Scream or curse at you? <span class="req">*</span></td><td><input type="radio" name="s12" value="1" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s12" value="2" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s12" value="3" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s12" value="4" onchange="calcSafety();checkNRState('ahc')"></td><td><input type="radio" name="s12" value="5" onchange="calcSafety();checkNRState('ahc')"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="score-row"><b>13. Safety Score:</b> <span class="score-display" id="safety-score">—</span></div>
+      <div class="comments-area" id="ahc-comments"><label>Comments:</label><textarea oninput="checkNRState('ahc')"></textarea></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-teal" onclick="tryNavigate('phq2','ahc')">PREVIOUS</button>
+      <button class="btn btn-teal" onclick="tryNavigate('careplan','ahc')">CONTINUE&gt;&gt;</button>
+    </div>
+    <div style="text-align:center;padding:10px;"><button class="btn btn-teal" style="padding:5px 24px;" onclick="autoSaveAndClose()">CLOSE</button></div>
+  </div>
+
+  <!-- CHW CARE PLAN TAB -->
+  <div id="tab-careplan" class="tab-content">
+    <div class="btn-row">
+      <button class="btn btn-teal" onclick="tryNavigate('ahc','careplan')">PREVIOUS</button>
+      <button class="btn btn-teal" onclick="saveRecord()">SAVE</button>
+      <button class="btn btn-teal" onclick="submitRecord()">SUBMIT</button>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Problem list</div>
+      <div class="care-field full-width"><div class="readonly-box">Pre-populated from the MDM tab of last signed-off physician evaluation. List separated by commas. Not editable. For example: Screening for Respiratory TB - (Z11.1), Homelessness, unspecified - (Z59.00), Abnormal Sputum - (R09.3), Abnormal Weight Loss - (R63.4)</div></div>
+      <div class="care-field full-width"><label>Comments:</label><textarea></textarea></div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Active TB medications</div>
+      <div class="care-field full-width">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead>
+            <tr style="background:#1a7fa8;color:#fff;">
+              <th style="padding:6px 8px;text-align:left;white-space:nowrap;">Order Date</th>
+              <th style="padding:6px 8px;text-align:left;">Medication Name</th>
+              <th style="padding:6px 8px;text-align:left;">Total Dose</th>
+              <th style="padding:6px 8px;text-align:left;">Frequency</th>
+              <th style="padding:6px 8px;text-align:left;">Duration</th>
+              <th style="padding:6px 8px;text-align:left;white-space:nowrap;">End Date</th>
+              <th style="padding:6px 8px;text-align:left;">Ordered By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/28/2023</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">BEDAQUILINE(SIRTURO) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">400 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">14 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/10/2023</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Jane Smith, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/20/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">11/18/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/20/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">11/18/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;">10/20/2022</td><td style="padding:5px 8px;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;">50 mg</td><td style="padding:5px 8px;">1 X Daily</td><td style="padding:5px 8px;">30 Day(s)</td><td style="padding:5px 8px;">11/18/2022</td><td style="padding:5px 8px;">Robert Brown, MD</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="care-field full-width"><label>Comments:</label><textarea></textarea></div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Chronic conditions/social health needs<span class="req" style="margin-left:2px;">*</span> <label class="none-inline"><input type="checkbox" name="cond" value="none" onchange="handleNoneMutual('cond','none')"> None</label></div>
+      <div class="care-field full-width">
+        <div class="checkbox-row">
+          <label><input type="checkbox" name="cond" value="cv" onchange="handleNoneMutual('cond','none')"> Community violence</label>
+          <label><input type="checkbox" name="cond" value="jsi" onchange="handleNoneMutual('cond','none')"> Justice system involved</label>
+          <label><input type="checkbox" name="cond" value="pp" onchange="handleNoneMutual('cond','none')"> Pregnant/postpartum</label>
+          <label style="color:#888;"><input type="checkbox" id="under21" disabled> Under 21 years of age <span style="font-size:10px;color:#1a7fa8;">(auto-calculated from DOB)</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Patient was connected to the following resources<span class="req" style="margin-left:2px;">*</span> <label class="none-inline"><input type="checkbox" id="resources-none" onchange="handleResourceNone()"> None</label></div>
+      <div class="care-field full-width">
+        <div class="checkbox-row">
+          <label><input type="checkbox" class="resource-check" value="CAT scan/radiology" onchange="updateGoals();handleResourceOther()"> CAT scan/radiology</label>
+          <label><input type="checkbox" class="resource-check" value="Housing resources" onchange="updateGoals();handleResourceOther()"> Housing resources</label>
+          <label><input type="checkbox" class="resource-check" value="OHIS referral" onchange="updateGoals();handleResourceOther()"> OHIS referral</label>
+          <label><input type="checkbox" class="resource-check" value="PCP/specialist referral" onchange="updateGoals();handleResourceOther()"> PCP/specialist referral</label>
+          <label><input type="checkbox" class="resource-check" value="SNAP/food pantry" onchange="updateGoals();handleResourceOther()"> SNAP/food pantry</label>
+          <label><input type="checkbox" class="resource-check" value="Workforce 1/employment resources" onchange="updateGoals();handleResourceOther()"> Workforce 1/employment resources</label>
+          <label><input type="checkbox" class="resource-check" value="Other" id="other-check" onchange="updateGoals();handleResourceOther()"> Other</label>
+        </div>
+        <div id="other-text-box" style="display:none;margin-top:6px;"><input type="text" placeholder="Please specify..." style="width:300px;font-size:11px;padding:3px 6px;border:1px solid #aaa;"></div>
+      </div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Treatment goals <span style="font-size:11px;font-weight:400;">(one set per resource selected above)</span></div>
+      <div class="care-field full-width" id="goals-container">
+        <div style="font-size:11px;color:#888;font-style:italic;padding:4px 0;">Select resources above to generate treatment goal sections...</div>
+      </div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Diagnosis Codes (ICD 10): <span class="req">*</span> <span style="color:#1a7fa8;font-size:12px;cursor:pointer;text-decoration:underline;font-weight:400;" onclick="openICDModal()">Select Codes</span></div>
+      <div class="care-field full-width">
+        <textarea id="icd-display" readonly style="width:100%;font-size:11px;padding:4px 6px;border:1px solid #ccc;height:48px;background:#f9f9f9;color:#555;resize:vertical;" placeholder=""></textarea>
+      </div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Session details</div>
+      <div class="care-grid">
+        <div class="care-field">
+          <label>Referring physician <span class="req">*</span></label>
+          <select style="width:260px;font-size:11px;padding:3px 6px;border:1px solid #aaa;">
+            <option value="">Select</option>
+            <option>Self</option>
+            <option>Celia Quinn, MD</option>
+            <option>Christina Kaul, MD</option>
+            <option>Diana Nilsen, MD</option>
+            <option>Duncan Maru, MD</option>
+            <option>Felicia Dworkin, MD</option>
+            <option>Guajira Thomas Caceres, MD</option>
+            <option>Hannah Jordan, MD</option>
+            <option>Helene Lupatkin, MD</option>
+            <option>Jannet Tobon Ramos, MD</option>
+            <option>Jonah Kreniske, MD</option>
+            <option>Joseph Burzynski, MD</option>
+            <option>Kareen Joseph, MD</option>
+            <option>Kyle Walding, MD</option>
+            <option>Megumi Itoh, MD</option>
+            <option>Melanie Watanabe, MD</option>
+            <option>Neil Vora, MD</option>
+            <option>Roona Ray, MD</option>
+            <option>Sneha Maru, MD</option>
+            <option>Srividya Murthy, MD</option>
+            <option>Sujatha Rajan</option>
+            <option>Vinod Mitta, MD</option>
+          </select>
+        </div>
+        <div class="care-field">
+          <label>Consent received from patient? <span class="req">*</span></label>
+          <div class="inline-radio" style="margin-top:6px;"><label><input type="radio" name="consent"> Yes</label><label><input type="radio" name="consent"> No</label></div>
+        </div>
+        <div class="care-field full-width">
+          <div style="display:flex;gap:24px;align-items:flex-end;flex-wrap:wrap;">
+            <div><label>Start time <span class="req">*</span></label>
+              <div style="display:flex;gap:4px;align-items:center;margin-top:3px;">
+                <input type="text" id="start-time" style="width:70px;font-size:11px;padding:3px 6px;border:1px solid #aaa;" placeholder="HH:MM" oninput="autoFormatTime(this)" onchange="calcTotalTime()" maxlength="5">
+                <select id="start-ampm" style="width:55px;font-size:11px;padding:3px;border:1px solid #aaa;" onchange="calcTotalTime()"><option>AM</option><option>PM</option></select>
+              </div>
+            </div>
+            <div><label>End time <span class="req">*</span></label>
+              <div style="display:flex;gap:4px;align-items:center;margin-top:3px;">
+                <input type="text" id="end-time" style="width:70px;font-size:11px;padding:3px 6px;border:1px solid #aaa;" placeholder="HH:MM" oninput="autoFormatTime(this)" onchange="calcTotalTime()" maxlength="5">
+                <select id="end-ampm" style="width:55px;font-size:11px;padding:3px;border:1px solid #aaa;" onchange="calcTotalTime()"><option>AM</option><option>PM</option></select>
+              </div>
+              <div id="time-error" style="color:#c00;font-size:10px;margin-top:3px;display:none;">End time must be greater than start time.</div>
+            </div>
+            <div><label>Total time (auto-calculated)</label>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:3px;font-size:11px;">
+                <input type="text" id="total-time" readonly style="width:60px;font-size:11px;padding:3px 6px;border:1px solid #aaa;background:#f5f5f5;" placeholder="—"> Minutes
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="care-section">
+      <div class="section-header">Notes</div>
+      <div class="care-field full-width"><label>CHW intervention: <span class="req">*</span></label><textarea></textarea></div>
+      <div class="care-field full-width">
+        <label>Attending social worker/physician comments: <span style="font-size:10px;color:#888;">(available at sign-off only)</span></label>
+        <textarea disabled style="background:#f5f5f5;color:#aaa;cursor:not-allowed;"></textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-teal" onclick="tryNavigate('ahc','careplan')">PREVIOUS</button>
+      <button class="btn btn-teal" onclick="saveRecord()">SAVE</button>
+      <button class="btn btn-teal" onclick="submitRecord()">SUBMIT</button>
+    </div>
+    <div style="text-align:center;padding:10px;"><button class="btn btn-teal" style="padding:5px 24px;" onclick="autoSaveAndClose()">CLOSE</button></div>
+  </div>
+</div>
+
+<script>
+var pendingTab=null,currentAssessmentType='initial';
+var tabComplete={phq2:false,ahc:false,careplan:false};
+
+function checkInitial(){
+  var rows=document.querySelectorAll('#landing-tbody tr');
+  var hasInitial=false;
+  rows.forEach(function(r){
+    var cells=r.querySelectorAll('td');
+    if(cells[2]&&cells[2].textContent.trim()==='Initial') hasInitial=true;
+  });
+  if(hasInitial){
+    alert('An Initial Assessment already exists for this patient. Only a Follow-up Assessment can be created.');
+    return;
+  }
+  showAssessment('initial');
+}
+
+function checkFollowUp(){
+  var rows=document.querySelectorAll('#landing-tbody tr');
+  var hasInitial=false;
+  rows.forEach(function(r){
+    var cells=r.querySelectorAll('td');
+    if(cells[2]&&cells[2].textContent.trim()==='Initial') hasInitial=true;
+  });
+  if(!hasInitial){
+    alert('A Follow-up Assessment cannot be created until at least one Initial Assessment has been documented.');
+    return;
+  }
+  showAssessment('followup');
+}
+
+function getTodayStr(){var d=new Date();return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'/'+d.getFullYear();}
+
+function showLanding(){document.getElementById('landing-screen').style.display='block';document.getElementById('assessment-screen').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+
+function showAssessment(type){
+  currentAssessmentType=type;
+  document.getElementById('landing-screen').style.display='none';
+  document.getElementById('assessment-screen').style.display='block';
+  var label=type==='initial'?'Initial':type==='followup'?'Follow-up':'Back Date';
+  document.getElementById('header-title').textContent='\u2190 '+label+' CHW Assessment';
+  document.getElementById('initiated-date').textContent=getTodayStr();
+  var dateEl=document.getElementById('assessment-date');
+  if(type==='backdate'){dateEl.value='';dateEl.removeAttribute('readonly');dateEl.style.background='';}
+  else{dateEl.value=getTodayStr();dateEl.setAttribute('readonly','readonly');dateEl.style.background='#f5f5f5';}
+  tabComplete={phq2:false,ahc:false,careplan:false};
+  ['phq2','ahc','careplan'].forEach(function(n){document.getElementById('tab-btn-'+n).className='tab incomplete';});
+  showTab('phq2');window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showTab(name){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('mandatory-alert').style.display='none';
+  ['phq2','ahc','careplan'].forEach(function(n){document.getElementById('tab-btn-'+n).className='tab '+(n===name?'selected':(tabComplete[n]?'complete':'incomplete'));});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function tryNavigate(toTab,fromTab){
+  if(hasMandatoryIncomplete(fromTab)){pendingTab=toTab;document.getElementById('mandatory-alert').style.display='block';document.getElementById('mandatory-alert').scrollIntoView({behavior:'smooth'});}
+  else{tabComplete[fromTab]=true;showTab(toTab);}
+}
+
+function hasMandatoryIncomplete(tab){
+  if(tab==='phq2'){if(document.getElementById('nr-phq2').checked)return false;return document.getElementById('phq1').value===''||document.getElementById('phq2q').value==='';}
+  if(tab==='ahc'){if(document.getElementById('nr-ahc').checked)return false;var s=document.querySelectorAll('#ahc-body select');for(var i=0;i<s.length;i++)if(s[i].value==='')return true;var sf=['s9','s10','s11','s12'];for(var j=0;j<sf.length;j++)if(!document.querySelector('input[name="'+sf[j]+'"]:checked'))return true;return false;}
+  return false;
+}
+
+function proceedToTab(){document.getElementById('mandatory-alert').style.display='none';if(pendingTab)showTab(pendingTab);}
+function dismissAlert(){document.getElementById('mandatory-alert').style.display='none';pendingTab=null;}
+
+function submitRecord(){
+  var missing=hasMandatoryIncomplete('phq2')||hasMandatoryIncomplete('ahc');
+  var body=document.getElementById('submit-modal-body');
+  var footer=document.getElementById('submit-modal-footer');
+  if(missing){
+    body.innerHTML='<span style="color:#c00;font-weight:700;">⚠ Mandatory fields are not documented.</span><br><br>Please complete all required fields before submitting.';
+    footer.innerHTML='<button class="btn btn-teal" onclick="closeSubmitModal()">OK</button>';
+  } else {
+    body.innerHTML='You cannot make edits once submitted. You can only create an addendum after submission.<br><br>Do you want to proceed?';
+    footer.innerHTML='<button class="btn btn-teal" onclick="confirmSubmit()">Yes, Submit</button><button class="btn" style="background:#888;" onclick="closeSubmitModal()">No, Go Back</button>';
+  }
+  document.getElementById('submit-modal').classList.add('active');
+}
+
+function confirmSubmit(){
+  closeSubmitModal();
+  alert('Record submitted and signed off successfully.');
+  addRecordToLanding(true);
+  showLanding();
+}
+function closeSubmitModal(){document.getElementById('submit-modal').classList.remove('active');}
+
+function autoSaveAndClose(){alert('Progress has been saved automatically.');addRecordToLanding(false);showLanding();}
+function saveRecord(){alert('Record saved successfully.');addRecordToLanding(false);}
+
+function addRecordToLanding(isSignedOff){
+  var tbody=document.getElementById('landing-tbody');
+  var noRec=document.getElementById('no-records');
+  var today=getTodayStr();
+  var type=currentAssessmentType==='initial'?'Initial':currentAssessmentType==='followup'?'Follow-up':'Back Date';
+  // Check if row already exists for today — update instead of duplicate
+  var existing=tbody.querySelector('tr[data-today="'+today+'"]');
+  if(existing){tbody.removeChild(existing);}
+  var tr=document.createElement('tr');
+  tr.setAttribute('data-today',today);
+  tr.setAttribute('data-signed',isSignedOff?today:'');
+  var signedDate=isSignedOff?today:'';
+  var signedBy=isSignedOff?'SUNIL CHARLA, Admin':'';
+  var status=isSignedOff?'<span class="status-signed">Signed Off</span>':'<span class="status-initiated">Initiated</span>';
+  // Actions: Delete for initiated, Addendum for signed off (within 5 days — simulated as available)
+  var actions='';
+  if(!isSignedOff){actions='<button class="action-btn delete" onclick="deleteRow(this)">Delete</button>';}
+  else{actions='<button class="action-btn addendum">Addendum</button>';}
+  tr.innerHTML='<td>'+today+'</td><td style="color:#1a7fa8;cursor:pointer;text-decoration:underline;" onclick="showAssessment(\''+currentAssessmentType+'\')">'+today+'</td><td>'+type+'</td><td>SUNIL CHARLA, Admin</td><td>'+signedDate+'</td><td>'+signedBy+'</td><td>TRAINING</td><td>1.0</td><td>'+actions+'</td><td>'+status+'</td>';
+  tbody.appendChild(tr);
+  noRec.style.display='none';
+}
+
+function deleteRow(btn){
+  if(confirm('Are you sure you want to delete this record?')){btn.closest('tr').remove();if(!document.getElementById('landing-tbody').rows.length)document.getElementById('no-records').style.display='block';}
+}
+
+function checkNRState(tab){
+  var nrEl=document.getElementById('nr-'+tab);if(!nrEl)return;
+  var hasData=tabHasData(tab);nrEl.disabled=hasData;nrEl.style.color=hasData?'#bbb':'#555';
+}
+
+function tabHasData(tab){
+  if(tab==='phq2')return document.getElementById('phq1').value!==''||document.getElementById('phq2q').value!==''||(document.querySelector('#phq2-comments textarea').value.trim()!=='');
+  if(tab==='ahc'){var s=document.querySelectorAll('#ahc-body select');for(var i=0;i<s.length;i++)if(s[i].value!=='')return true;if(document.querySelectorAll('#ahc-body input[type=radio]:checked').length)return true;if(document.querySelectorAll('#ahc-body input[type=checkbox]:checked').length)return true;if(document.querySelector('#ahc-comments textarea').value.trim()!=='')return true;return false;}
+  return false;
+}
+
+function toggleNotRequired(tab){
+  var nr=document.getElementById('nr-'+tab).checked;
+  var body=document.getElementById(tab+'-body');if(!body)return;
+  body.querySelectorAll('input:not([id^="nr-"]),select,textarea').forEach(function(el){el.disabled=nr;el.style.background=nr?'#f5f5f5':'';});
+}
+
+function calcPHQ(){var v1=document.getElementById('phq1').value,v2=document.getElementById('phq2q').value,el=document.getElementById('phq-score');if(v1===''||v2===''){el.textContent='—';return;}var t=parseInt(v1)+parseInt(v2);el.textContent=t+(t===1?' point':' points');}
+
+function calcSafety(){var total=0,all=true;['s9','s10','s11','s12'].forEach(function(n){var s=document.querySelector('input[name="'+n+'"]:checked');if(s)total+=parseInt(s.value);else all=false;});var el=document.getElementById('safety-score');if(!all){el.textContent='—';return;}el.textContent=total+(total===1?' point':' points');}
+
+function handleNoneMutual(g,nv){var all=document.querySelectorAll('input[name="'+g+'"]'),nb=document.querySelector('input[name="'+g+'"][value="'+nv+'"]'),ao=false;all.forEach(function(b){if(b.value!==nv&&b.checked)ao=true;});if(nb&&nb.checked){all.forEach(function(b){if(b.value!==nv){b.checked=false;b.disabled=true;}});}else if(ao){if(nb){nb.checked=false;nb.disabled=true;}}else{all.forEach(function(b){b.disabled=false;});}}
+
+function handleResourceNone(){
+  var noneBox=document.getElementById('resources-none');
+  var checks=document.querySelectorAll('.resource-check');
+  if(noneBox.checked){
+    checks.forEach(function(c){c.checked=false;c.disabled=true;});
+    document.getElementById('other-text-box').style.display='none';
+    document.getElementById('goals-container').innerHTML='<div style="font-size:11px;color:#888;font-style:italic;padding:4px 0;">Select resources above to generate treatment goal sections...</div>';
+  } else {
+    checks.forEach(function(c){c.disabled=false;});
+  }
+}
+
+function handleResourceOther(){
+  var noneBox=document.getElementById('resources-none');
+  var anyChecked=document.querySelectorAll('.resource-check:checked').length>0;
+  if(anyChecked){noneBox.checked=false;noneBox.disabled=true;}
+  else{noneBox.disabled=false;}
+}
+
+function updateGoals(){
+  document.getElementById('other-text-box').style.display=document.getElementById('other-check').checked?'block':'none';
+  var checks=document.querySelectorAll('.resource-check:checked'),container=document.getElementById('goals-container');
+  if(!checks.length){container.innerHTML='<div style="font-size:11px;color:#888;font-style:italic;padding:4px 0;">Select resources above to generate treatment goal sections...</div>';return;}
+  var html='';
+  checks.forEach(function(c){html+='<div class="treatment-goal-block"><div class="treatment-goal-header">Treatment goals — '+c.value+'</div><div class="treatment-goal-body"><div style="display:flex;align-items:center;gap:16px;font-size:11px;margin-bottom:8px;flex-wrap:wrap;"><span style="font-weight:700;font-size:11px;color:#333;white-space:nowrap;">Planned intervention<span style="color:#c00;">*</span></span><label><input type="checkbox"> None</label><label><input type="checkbox"> Health advocacy</label><label><input type="checkbox"> Health education</label><label><input type="checkbox"> Health navigation</label></div><div class="tg-label">Treatment goals <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;margin-bottom:6px;"></textarea><div class="tg-label">Expected outcomes <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;"></textarea></div></div>';});
+  container.innerHTML=html;
+}
+
+function autoFormatTime(el){
+  // Strip non-digits
+  var raw=el.value.replace(/\D/g,'');
+  if(raw.length===0){el.value='';return;}
+  // If user typed 4 digits like 1015, format to 10:15
+  if(raw.length>=4){
+    var h=raw.substring(0,2);
+    var m=raw.substring(2,4);
+    el.value=h+':'+m;
+    calcTotalTime();
+    return;
+  }
+  // If user typed 3 digits like 915, format to 9:15
+  if(raw.length===3){
+    var h=raw.substring(0,1);
+    var m=raw.substring(1,3);
+    el.value=h+':'+m;
+    calcTotalTime();
+    return;
+  }
+  // Otherwise just keep typing
+  el.value=raw;
+}
+
+function calcTotalTime(){
+  var st=document.getElementById('start-time').value,sa=document.getElementById('start-ampm').value,et=document.getElementById('end-time').value,ea=document.getElementById('end-ampm').value;
+  var errEl=document.getElementById('time-error'),totEl=document.getElementById('total-time');
+  if(!st||!et){totEl.value='';return;}
+  function toMins(t,a){var p=t.split(':');if(p.length!==2)return null;var h=parseInt(p[0]),m=parseInt(p[1]);if(isNaN(h)||isNaN(m))return null;if(a==='PM'&&h!==12)h+=12;if(a==='AM'&&h===12)h=0;return h*60+m;}
+  var sm=toMins(st,sa),em=toMins(et,ea);if(!sm||!em){totEl.value='';return;}
+  if(em<=sm){errEl.style.display='block';totEl.value='';return;}errEl.style.display='none';totEl.value=em-sm;
+}
+
+// ICD Modal
+function openICDModal(){document.getElementById('icd-modal').classList.add('active');}
+function closeICDModal(){document.getElementById('icd-modal').classList.remove('active');}
+function checkAllICD(){document.querySelectorAll('#icd-list input[type=checkbox]').forEach(function(c){c.checked=true;});updatePrimaryDx();}
+function uncheckAllICD(){document.querySelectorAll('#icd-list input[type=checkbox]').forEach(function(c){c.checked=false;});updatePrimaryDx();}
+function filterICD(val){document.querySelectorAll('#icd-list label').forEach(function(l){l.style.display=l.textContent.toLowerCase().indexOf(val.toLowerCase())>-1?'flex':'none';});}
+function updatePrimaryDx(){
+  var sel=document.getElementById('primary-dx-select');
+  var current=sel.value;
+  sel.innerHTML='<option value="">Select</option>';
+  document.querySelectorAll('#icd-list input[type=checkbox]:checked').forEach(function(c){
+    var text=c.parentElement.textContent.trim();
+    var opt=document.createElement('option');opt.value=text;opt.textContent=text;sel.appendChild(opt);
+  });
+  sel.value=current;
+}
+function saveICD(){
+  var selected=[];
+  document.querySelectorAll('#icd-list input[type=checkbox]:checked').forEach(function(c){selected.push(c.parentElement.textContent.trim());});
+  var primaryDx=document.getElementById('primary-dx-select').value;
+  var displayEl=document.getElementById('icd-display-div');
+  if(!displayEl){
+    // Replace textarea with a div for rich display
+    var ta=document.getElementById('icd-display');
+    var div=document.createElement('div');
+    div.id='icd-display-div';
+    div.style.cssText='width:100%;font-size:11px;padding:4px 6px;border:1px solid #ccc;min-height:48px;background:#f9f9f9;color:#555;';
+    ta.parentNode.replaceChild(div,ta);
+    displayEl=div;
+  }
+  var html=selected.map(function(s){
+    return s===primaryDx?'<strong>'+s+'</strong>':s;
+  }).join(', ');
+  displayEl.innerHTML=html||'';
+  closeICDModal();
+}
+
+(function(){var dob=new Date('1985-03-14'),today=new Date();var age=today.getFullYear()-dob.getFullYear();if(today.getMonth()-dob.getMonth()<0||(today.getMonth()===dob.getMonth()&&today.getDate()<dob.getDate()))age--;var el=document.getElementById('under21');if(el)el.checked=age<21;})();
+</script>
+</body>
+</html>
