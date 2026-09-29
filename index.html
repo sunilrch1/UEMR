@@ -242,8 +242,8 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
     <div class="nr-check"><input type="checkbox" id="nr-ahc" onchange="toggleNotRequired('ahc')"> Not Required</div>
     <div id="ahc-body">
       <div class="ahc-consent">
-        <b>Question 0 — Consent required:</b> We use this survey to understand needs our patients have which could interfere with good health. We may share your answers with your other healthcare providers, and with your health plan and social services organizations, so they can determine if you qualify for any free non-medical services that could be helpful. You can choose not to answer this survey, but we can only check for services if you do answer.
-        <div class="consent-opts"><label><input type="radio" name="ahc0" value="permit" onchange="checkNRState('ahc');handleConsent()"> Permit</label><label><input type="radio" name="ahc0" value="deny" onchange="checkNRState('ahc');handleConsent()"> Deny</label></div>
+        <b>Question 0 — Consent required: <span class="req">*</span></b> We use this survey to understand needs our patients have which could interfere with good health. We may share your answers with your other healthcare providers, and with your health plan and social services organizations, so they can determine if you qualify for any free non-medical services that could be helpful. You can choose not to answer this survey, but we can only check for services if you do answer.
+        <div class="consent-opts"><label><input type="radio" name="ahc0" value="permit" onchange="checkNRState('ahc');handleConsent();document.getElementById('nr-ahc').checked=false;"> Permit</label><label><input type="radio" name="ahc0" value="deny" onchange="checkNRState('ahc');handleConsent();document.getElementById('nr-ahc').checked=false;"> Deny</label></div>
       </div>
       <div id="ahc-screener-body">
       <div class="q-row"><span class="q-text"><b>1.</b> What is your living situation today? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>I do not have a steady place to live</option><option>I have a place to live today, but I am worried about losing it in the future</option><option>I have a steady place to live</option></select></div>
@@ -500,6 +500,16 @@ function showAssessment(type){
   if(type==='backdate'){dateEl.value='';dateEl.removeAttribute('readonly');dateEl.style.background='';}
   else{dateEl.value=getTodayStr();dateEl.setAttribute('readonly','readonly');dateEl.style.background='#f5f5f5';}
   tabComplete={phq2:false,ahc:false,careplan:false};
+  // Reset consent selection and gray out AHC screener body by default
+  document.querySelectorAll('input[name="ahc0"]').forEach(function(r){r.checked=false;});
+  var ahcBody=document.getElementById('ahc-screener-body');
+  if(ahcBody){
+    ahcBody.style.opacity='0.4';
+    ahcBody.style.pointerEvents='none';
+    ahcBody.querySelectorAll('input, select, textarea').forEach(function(el){el.disabled=true;});
+  }
+  var nrCheck=document.getElementById('nr-ahc');
+  if(nrCheck){nrCheck.disabled=false;nrCheck.parentElement.style.opacity='1';}
   ['phq2','ahc','careplan'].forEach(function(n){document.getElementById('tab-btn-'+n).className='tab incomplete';});
   showTab('phq2');window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -590,7 +600,13 @@ function checkNRState(tab){
 
 function tabHasData(tab){
   if(tab==='phq2')return document.getElementById('phq1').value!==''||document.getElementById('phq2q').value!==''||(document.querySelector('#phq2-comments textarea').value.trim()!=='');
-  if(tab==='ahc'){var s=document.querySelectorAll('#ahc-body select');for(var i=0;i<s.length;i++)if(s[i].value!=='')return true;if(document.querySelectorAll('#ahc-body input[type=radio]:checked').length)return true;if(document.querySelectorAll('#ahc-body input[type=checkbox]:checked').length)return true;if(document.querySelector('#ahc-comments textarea').value.trim()!=='')return true;return false;}
+  if(tab==='ahc'){
+    var s=document.querySelectorAll('#ahc-screener-body select');for(var i=0;i<s.length;i++)if(s[i].value!=='')return true;
+    if(document.querySelectorAll('#ahc-screener-body input[type=radio]:checked').length)return true;
+    if(document.querySelectorAll('#ahc-screener-body input[type=checkbox]:checked').length)return true;
+    if(document.querySelector('#ahc-comments textarea')&&document.querySelector('#ahc-comments textarea').value.trim()!=='')return true;
+    return false;
+  }
   return false;
 }
 
@@ -598,6 +614,14 @@ function toggleNotRequired(tab){
   var nr=document.getElementById('nr-'+tab).checked;
   var body=document.getElementById(tab+'-body');if(!body)return;
   body.querySelectorAll('input:not([id^="nr-"]),select,textarea').forEach(function(el){el.disabled=nr;el.style.background=nr?'#f5f5f5':'';});
+  // For AHC tab: if NR checked, clear consent selection and gray out body
+  if(tab==='ahc'){
+    if(nr){
+      document.querySelectorAll('input[name="ahc0"]').forEach(function(r){r.checked=false;});
+      var ahcBody=document.getElementById('ahc-screener-body');
+      if(ahcBody){ahcBody.style.opacity='0.4';ahcBody.style.pointerEvents='none';}
+    }
+  }
 }
 
 function calcPHQ(){var v1=document.getElementById('phq1').value,v2=document.getElementById('phq2q').value,el=document.getElementById('phq-score');if(v1===''||v2===''){el.textContent='—';return;}var t=parseInt(v1)+parseInt(v2);el.textContent=t+(t===1?' point':' points');}
