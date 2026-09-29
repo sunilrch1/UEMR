@@ -243,8 +243,9 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
     <div id="ahc-body">
       <div class="ahc-consent">
         <b>Question 0 — Consent required:</b> We use this survey to understand needs our patients have which could interfere with good health. We may share your answers with your other healthcare providers, and with your health plan and social services organizations, so they can determine if you qualify for any free non-medical services that could be helpful. You can choose not to answer this survey, but we can only check for services if you do answer.
-        <div class="consent-opts"><label><input type="radio" name="ahc0" onchange="checkNRState('ahc')"> Permit</label><label><input type="radio" name="ahc0" onchange="checkNRState('ahc')"> Deny</label></div>
+        <div class="consent-opts"><label><input type="radio" name="ahc0" value="permit" onchange="checkNRState('ahc');handleConsent()"> Permit</label><label><input type="radio" name="ahc0" value="deny" onchange="checkNRState('ahc');handleConsent()"> Deny</label></div>
       </div>
+      <div id="ahc-screener-body">
       <div class="q-row"><span class="q-text"><b>1.</b> What is your living situation today? <span class="req">*</span></span><select onchange="checkNRState('ahc')"><option value="">Select</option><option>I do not have a steady place to live</option><option>I have a place to live today, but I am worried about losing it in the future</option><option>I have a steady place to live</option></select></div>
       <div class="q-row q-row-col">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
@@ -283,6 +284,7 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
       </div>
       <div class="score-row"><b>13. Safety Score:</b> <span class="score-display" id="safety-score">—</span></div>
       <div class="comments-area" id="ahc-comments"><label>Comments:</label><textarea oninput="checkNRState('ahc')"></textarea></div>
+      </div> <!-- end ahc-screener-body -->
     </div>
     <div class="btn-row">
       <button class="btn btn-teal" onclick="tryNavigate('phq2','ahc')">PREVIOUS</button>
@@ -319,42 +321,48 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
             </tr>
           </thead>
           <tbody>
-            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
-            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
-            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/22/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/20/2025</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
-            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">08/28/2023</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">BEDAQUILINE(SIRTURO) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">400 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">14 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/10/2023</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Jane Smith, MD</td></tr>
-            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/20/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">11/18/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
-            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/20/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">11/18/2022</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
-            <tr style="background:#fff;"><td style="padding:5px 8px;">10/20/2022</td><td style="padding:5px 8px;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;">50 mg</td><td style="padding:5px 8px;">1 X Daily</td><td style="padding:5px 8px;">30 Day(s)</td><td style="padding:5px 8px;">11/18/2022</td><td style="padding:5px 8px;">Robert Brown, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/05/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">John Doe, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/10/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">BEDAQUILINE(SIRTURO) - Tablet</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">400 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">14 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/24/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Jane Smith, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/15/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">ISONIAZID - Syrup</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">50 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/15/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
+            <tr style="background:#f9f9f9;"><td style="padding:5px 8px;border-bottom:1px solid #eee;">09/15/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;color:#1a7fa8;">RIFAMPIN(RIFADIN) - Capsule</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">300 mg</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">1 X Daily</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">30 Day(s)</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">10/15/2026</td><td style="padding:5px 8px;border-bottom:1px solid #eee;">Robert Brown, MD</td></tr>
+            <tr style="background:#fff;"><td style="padding:5px 8px;">09/15/2026</td><td style="padding:5px 8px;color:#1a7fa8;">PYRIDOXINE(VITAMIN B-6) - Tablet</td><td style="padding:5px 8px;">50 mg</td><td style="padding:5px 8px;">1 X Daily</td><td style="padding:5px 8px;">30 Day(s)</td><td style="padding:5px 8px;">10/15/2026</td><td style="padding:5px 8px;">Robert Brown, MD</td></tr>
           </tbody>
         </table>
       </div>
       <div class="care-field full-width"><label>Comments:</label><textarea></textarea></div>
     </div>
     <div class="care-section">
-      <div class="section-header">Chronic conditions/social health needs<span class="req" style="margin-left:2px;">*</span> <label class="none-inline"><input type="checkbox" name="cond" value="none" onchange="handleNoneMutual('cond','none')"> None</label></div>
+      <div class="section-header">CHW Eligibility Criteria<span class="req" style="margin-left:0px;">*</span> <label class="none-inline"><input type="checkbox" name="cond" value="none" onchange="handleNoneMutual('cond','none')"> None</label></div>
       <div class="care-field full-width">
         <div class="checkbox-row">
-          <label><input type="checkbox" name="cond" value="cv" onchange="handleNoneMutual('cond','none')"> Community violence</label>
-          <label><input type="checkbox" name="cond" value="jsi" onchange="handleNoneMutual('cond','none')"> Justice system involved</label>
-          <label><input type="checkbox" name="cond" value="pp" onchange="handleNoneMutual('cond','none')"> Pregnant/postpartum</label>
-          <label style="color:#888;"><input type="checkbox" id="under21" disabled> Under 21 years of age <span style="font-size:10px;color:#1a7fa8;">(auto-calculated from DOB)</span></label>
+          <label><input type="checkbox" name="cond" value="cc" onchange="handleNoneMutual('cond','none')"> Chronic Condition(s)</label>
+          <label><input type="checkbox" name="cond" value="cv" onchange="handleNoneMutual('cond','none')"> Community Violence</label>
+          <label><input type="checkbox" name="cond" value="hrsn" onchange="handleNoneMutual('cond','none')"> Health-related Social Needs</label>
+          <label><input type="checkbox" name="cond" value="jsi" onchange="handleNoneMutual('cond','none')"> Justice System Involved</label>
+          <label><input type="checkbox" name="cond" value="pp" onchange="handleNoneMutual('cond','none')"> Pregnant/Postpartum</label>
+          <label style="color:#888;"><input type="checkbox" id="under21" disabled> Under 21 <span style="font-size:10px;color:#1a7fa8;">(auto-calculated from DOB)</span></label>
         </div>
       </div>
     </div>
     <div class="care-section">
-      <div class="section-header">Patient was connected to the following resources<span class="req" style="margin-left:2px;">*</span> <label class="none-inline"><input type="checkbox" id="resources-none" onchange="handleResourceNone()"> None</label></div>
+      <div class="section-header">Patient was connected to the following resources<span class="req" style="margin-left:0px;">*</span> <label class="none-inline"><input type="checkbox" id="resources-none" onchange="handleResourceNone()"> None</label></div>
       <div class="care-field full-width">
         <div class="checkbox-row">
-          <label><input type="checkbox" class="resource-check" value="CAT scan/radiology" onchange="updateGoals();handleResourceOther()"> CAT scan/radiology</label>
-          <label><input type="checkbox" class="resource-check" value="Housing resources" onchange="updateGoals();handleResourceOther()"> Housing resources</label>
-          <label><input type="checkbox" class="resource-check" value="OHIS referral" onchange="updateGoals();handleResourceOther()"> OHIS referral</label>
-          <label><input type="checkbox" class="resource-check" value="PCP/specialist referral" onchange="updateGoals();handleResourceOther()"> PCP/specialist referral</label>
-          <label><input type="checkbox" class="resource-check" value="SNAP/food pantry" onchange="updateGoals();handleResourceOther()"> SNAP/food pantry</label>
-          <label><input type="checkbox" class="resource-check" value="Workforce 1/employment resources" onchange="updateGoals();handleResourceOther()"> Workforce 1/employment resources</label>
-          <label><input type="checkbox" class="resource-check" value="Other" id="other-check" onchange="updateGoals();handleResourceOther()"> Other</label>
+          <label><input type="checkbox" class="resource-check" value="CAT Scan/Radiology" onchange="updateGoals();handleResourceOther()"> CAT Scan/Radiology</label>
+          <label><input type="checkbox" class="resource-check" value="Housing Resources" onchange="updateGoals();handleResourceOther()"> Housing Resources</label>
+          <label><input type="checkbox" class="resource-check" value="Mental Health Counseling" onchange="updateGoals();handleResourceOther()"> Mental Health Counseling</label>
+          <label><input type="checkbox" class="resource-check" value="OHIS Referral" onchange="updateGoals();handleResourceOther()"> OHIS Referral</label>
+          <label><input type="checkbox" class="resource-check" value="PCP/Specialist Referral" onchange="updateGoals();handleResourceOther()"> PCP/Specialist Referral</label>
+          <label><input type="checkbox" class="resource-check" value="SNAP/Food Pantry" onchange="updateGoals();handleResourceOther()"> SNAP/Food Pantry</label>
+          <label><input type="checkbox" class="resource-check" value="Workforce 1/Employment Resources" onchange="updateGoals();handleResourceOther()"> Workforce 1/Employment Resources</label>
         </div>
-        <div id="other-text-box" style="display:none;margin-top:6px;"><input type="text" placeholder="Please specify..." style="width:300px;font-size:11px;padding:3px 6px;border:1px solid #aaa;"></div>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:6px;align-items:center;">
+          <label style="display:inline-flex;align-items:center;gap:6px;"><input type="checkbox" class="resource-check" value="Other" id="other-check" onchange="updateGoals();handleResourceOther()"> Other <span id="other-inline-input" style="display:none;align-items:center;gap:4px;"><input type="text" id="other-specify-text" placeholder="Please specify..." oninput="updateGoals()" style="width:200px;font-size:11px;padding:3px 6px;border:1px solid #aaa;"> <span class="req">*</span></span></label>
+          <label style="display:inline-flex;align-items:center;gap:6px;"><input type="checkbox" class="resource-check" value="Other (additional)" id="other-additional-check" onchange="updateGoals();handleResourceOther()"> Other (additional) <span id="other-additional-inline-input" style="display:none;align-items:center;gap:4px;"><input type="text" id="other-additional-specify-text" placeholder="Please specify..." oninput="updateGoals()" style="width:200px;font-size:11px;padding:3px 6px;border:1px solid #aaa;"> <span class="req">*</span></span></label>
+        </div>
+        <div id="other-text-box" style="display:none;"></div>
       </div>
     </div>
     <div class="care-section">
@@ -376,8 +384,7 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
           <label>Referring physician <span class="req">*</span></label>
           <select style="width:260px;font-size:11px;padding:3px 6px;border:1px solid #aaa;">
             <option value="">Select</option>
-            <option>Self</option>
-            <option>Celia Quinn, MD</option>
+                        <option>Celia Quinn, MD</option>
             <option>Christina Kaul, MD</option>
             <option>Diana Nilsen, MD</option>
             <option>Duncan Maru, MD</option>
@@ -399,6 +406,7 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
             <option>Sujatha Rajan</option>
             <option>Vinod Mitta, MD</option>
           </select>
+          <div style="font-size:10px;color:#888;font-style:italic;margin-top:3px;">Only active physicians (Provider Type = Physician) will be listed.</div>
         </div>
         <div class="care-field">
           <label>Consent received from patient? <span class="req">*</span></label>
@@ -430,7 +438,7 @@ body{font-family:Arial,sans-serif;background:#e8e8e8;padding:16px;}
     </div>
     <div class="care-section">
       <div class="section-header">Notes</div>
-      <div class="care-field full-width"><label>CHW intervention: <span class="req">*</span></label><textarea></textarea></div>
+      <div class="care-field full-width"><label>CHW Notes:</label><textarea></textarea></div>
       <div class="care-field full-width">
         <label>Attending social worker/physician comments: <span style="font-size:10px;color:#888;">(available at sign-off only)</span></label>
         <textarea disabled style="background:#f5f5f5;color:#aaa;cursor:not-allowed;"></textarea>
@@ -511,7 +519,12 @@ function tryNavigate(toTab,fromTab){
 
 function hasMandatoryIncomplete(tab){
   if(tab==='phq2'){if(document.getElementById('nr-phq2').checked)return false;return document.getElementById('phq1').value===''||document.getElementById('phq2q').value==='';}
-  if(tab==='ahc'){if(document.getElementById('nr-ahc').checked)return false;var s=document.querySelectorAll('#ahc-body select');for(var i=0;i<s.length;i++)if(s[i].value==='')return true;var sf=['s9','s10','s11','s12'];for(var j=0;j<sf.length;j++)if(!document.querySelector('input[name="'+sf[j]+'"]:checked'))return true;return false;}
+  if(tab==='ahc'){
+    if(document.getElementById('nr-ahc').checked)return false;
+    var denySelected=document.querySelector('input[name="ahc0"][value="deny"]');
+    if(denySelected&&denySelected.checked)return false;
+    var s=document.querySelectorAll('#ahc-body select');for(var i=0;i<s.length;i++)if(s[i].value==='')return true;var sf=['s9','s10','s11','s12'];for(var j=0;j<sf.length;j++)if(!document.querySelector('input[name="'+sf[j]+'"]:checked'))return true;return false;
+  }
   return false;
 }
 
@@ -591,6 +604,24 @@ function calcPHQ(){var v1=document.getElementById('phq1').value,v2=document.getE
 
 function calcSafety(){var total=0,all=true;['s9','s10','s11','s12'].forEach(function(n){var s=document.querySelector('input[name="'+n+'"]:checked');if(s)total+=parseInt(s.value);else all=false;});var el=document.getElementById('safety-score');if(!all){el.textContent='—';return;}el.textContent=total+(total===1?' point':' points');}
 
+function handleConsent(){
+  var deny=document.querySelector('input[name="ahc0"][value="deny"]');
+  var ahcBody=document.getElementById('ahc-screener-body');
+  var nrCheck=document.getElementById('nr-ahc');
+  if(!ahcBody) return;
+  var inputs=ahcBody.querySelectorAll('input, select, textarea');
+  if(deny && deny.checked){
+    inputs.forEach(function(el){el.disabled=true;});
+    ahcBody.style.opacity='0.4';
+    ahcBody.style.pointerEvents='none';
+    if(nrCheck){nrCheck.disabled=false;nrCheck.parentElement.style.opacity='1';}
+  } else {
+    inputs.forEach(function(el){el.disabled=false;});
+    ahcBody.style.opacity='1';
+    ahcBody.style.pointerEvents='auto';
+    if(nrCheck){nrCheck.disabled=false;nrCheck.parentElement.style.opacity='1';}
+  }
+}
 function handleNoneMutual(g,nv){var all=document.querySelectorAll('input[name="'+g+'"]'),nb=document.querySelector('input[name="'+g+'"][value="'+nv+'"]'),ao=false;all.forEach(function(b){if(b.value!==nv&&b.checked)ao=true;});if(nb&&nb.checked){all.forEach(function(b){if(b.value!==nv){b.checked=false;b.disabled=true;}});}else if(ao){if(nb){nb.checked=false;nb.disabled=true;}}else{all.forEach(function(b){b.disabled=false;});}}
 
 function handleResourceNone(){
@@ -599,6 +630,8 @@ function handleResourceNone(){
   if(noneBox.checked){
     checks.forEach(function(c){c.checked=false;c.disabled=true;});
     document.getElementById('other-text-box').style.display='none';
+    document.getElementById('other-inline-input').style.display='none';
+    document.getElementById('other-additional-inline-input').style.display='none';
     document.getElementById('goals-container').innerHTML='<div style="font-size:11px;color:#888;font-style:italic;padding:4px 0;">Select resources above to generate treatment goal sections...</div>';
   } else {
     checks.forEach(function(c){c.disabled=false;});
@@ -613,11 +646,17 @@ function handleResourceOther(){
 }
 
 function updateGoals(){
-  document.getElementById('other-text-box').style.display=document.getElementById('other-check').checked?'block':'none';
+  document.getElementById('other-inline-input').style.display=document.getElementById('other-check').checked?'inline-flex':'none';
+  document.getElementById('other-additional-inline-input').style.display=document.getElementById('other-additional-check').checked?'inline-flex':'none';
   var checks=document.querySelectorAll('.resource-check:checked'),container=document.getElementById('goals-container');
   if(!checks.length){container.innerHTML='<div style="font-size:11px;color:#888;font-style:italic;padding:4px 0;">Select resources above to generate treatment goal sections...</div>';return;}
   var html='';
-  checks.forEach(function(c){html+='<div class="treatment-goal-block"><div class="treatment-goal-header">Treatment goals — '+c.value+'</div><div class="treatment-goal-body"><div style="display:flex;align-items:center;gap:16px;font-size:11px;margin-bottom:8px;flex-wrap:wrap;"><span style="font-weight:700;font-size:11px;color:#333;white-space:nowrap;">Planned intervention<span style="color:#c00;">*</span></span><label><input type="checkbox"> None</label><label><input type="checkbox"> Health advocacy</label><label><input type="checkbox"> Health education</label><label><input type="checkbox"> Health navigation</label></div><div class="tg-label">Treatment goals <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;margin-bottom:6px;"></textarea><div class="tg-label">Expected outcomes <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;"></textarea></div></div>';});
+  checks.forEach(function(c){
+    var label=c.value;
+    if(c.value==='Other'){var t=document.getElementById('other-specify-text');if(t&&t.value.trim())label='Other - '+t.value.trim();}
+    if(c.value==='Other (additional)'){var t=document.getElementById('other-additional-specify-text');if(t&&t.value.trim())label='Other (additional) - '+t.value.trim();}
+    html+='<div class="treatment-goal-block"><div class="treatment-goal-header">Treatment goals — '+label+'</div><div class="treatment-goal-body"><div style="display:flex;align-items:center;gap:16px;font-size:11px;margin-bottom:8px;flex-wrap:wrap;"><span style="font-weight:700;font-size:11px;color:#333;white-space:nowrap;">Planned intervention<span style="color:#c00;">*</span></span><label><input type="checkbox"> None</label><label><input type="checkbox"> Health advocacy</label><label><input type="checkbox"> Health education</label><label><input type="checkbox"> Health navigation</label></div><div class="tg-label">Treatment goals <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;margin-bottom:6px;"></textarea><div class="tg-label">Expected outcomes <span style="color:#c00;">*</span></div><textarea style="width:100%;font-size:11px;border:1px solid #aaa;padding:4px;height:52px;resize:vertical;"></textarea></div></div>';
+  });
   container.innerHTML=html;
 }
 
